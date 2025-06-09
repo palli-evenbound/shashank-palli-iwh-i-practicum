@@ -1,0 +1,33 @@
+html
+  head
+    title= pageTitle
+  body
+    h1 Update Custom Object Form | Integrating With HubSpot I Practicum
+    form(action="/update-cobj" method="POST")
+      label(for="pet_name") Pet Name:
+      input(type="text" name="pet_name" required)
+      br
+
+      label(for="animal_type") Animal Type:
+      select(name="animal_type" required)
+        option(value="Dog") Dog
+        option(value="Cat") Cat
+        option(value="Fish") Fish
+        option(value="Hamster") Hamster
+      br
+
+      label(for="pet_breed") Pet Breed:
+      select(name="pet_breed" required)
+        option(value="German Shepherd") German Shepherd
+        option(value="Labrador") Labrador
+        option(value="Persian Cat") Persian Cat
+        option(value="Tabby cat") Tabby cat
+        option(value="Gold Fish") Gold Fish
+        option(value="Shark Fish") Shark Fish
+        option(value="White Hamster") White Hamster
+        option(value="Brown Hamster") Brown Hamster
+      br
+
+      button(type="submit") Add Pet
+    br
+    a(href="/") Return to the homepage
