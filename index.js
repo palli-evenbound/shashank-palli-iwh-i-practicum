@@ -7,6 +7,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -15,6 +16,33 @@ app.set("views", path.join(__dirname, "views"));
 const PRIVATE_APP_ACCESS = process.env.HUBSPOT_API_KEY;
 
 const CUSTOM_OBJECT_API_NAME = "pets";
+
+/**
+ *Homepage route - shows all records of your custom object
+ */
+app.get("/", async (req, res) => {
+  try {
+    const url = `https://api.hubapi.com/crm/v3/objects/${CUSTOM_OBJECT_API_NAME}?limit=100&properties=pet_name,animal_type,pet_breed`;
+
+    const headers = {
+      Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+    };
+
+    const response = await axios.get(url, { headers });
+    const records = response.data.results || [];
+
+    res.render("homepage", {
+      pageTitle: "Homepage | Custom Object List",
+      records,
+    });
+  } catch (error) {
+    console.error(
+      "Error fetching custom objects:",
+      error.response?.data || error.message
+    );
+    res.status(500).send("Failed to fetch custom objects.");
+  }
+});
 
 /**
  * Render the form to add a new custom object record

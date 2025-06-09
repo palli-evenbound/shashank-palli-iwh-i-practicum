@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title= pageTitle
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    h1 Custom Object Table: Pets
+    a(href="/update-cobj") Add/Update to this table
+    br
+    br
+    if records.length
+      table(border="1")
+        thead
+          tr
+            th Pet Name
+            th Animal Type
+            th Animal Breed
+        tbody
+          each record in records
+            tr
+              td= record.properties.pet_name
+              td= record.properties.animal_type
+              td= record.properties.pet_breed
+    else
+      p No records found.
